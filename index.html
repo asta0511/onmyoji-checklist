@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0d0b11" />
+<title>痒痒鼠课程表 · 阴阳师打卡清单</title>
+<meta name="description" content="阴阳师每日 / 每周 / 活动打卡清单，自动统计勾玉蓝票收益，随时看清完成了哪些、还差哪些。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c8352f'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23f0d190' font-family='serif'%3E%E5%BC%8F%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <p class="notice">
+    数据仅保存在本地浏览器，不上传、不共享。结构参考 B 站「本命英雄拉克丝」的痒痒鼠打卡工具，攻略备注整理自《2025 痒痒鼠课程表》。
+  </p>
+
+  <header class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="hero__top">
+      <div class="brand">
+        <div class="brand__seal" aria-hidden="true">式</div>
+        <div class="brand__text">
+          <h1>痒痒鼠课程表</h1>
+          <p>阴阳师 · 每日 / 每周 / 活动打卡清单</p>
+        </div>
+      </div>
+      <div class="hero__ver" id="versionBadge">v1.0.0</div>
+    </div>
+
+    <div class="accounts" id="accounts" aria-label="账号切换"></div>
+
+    <div class="hero__actions">
+      <button type="button" class="btn" id="resetDay">重置本日打卡</button>
+      <button type="button" class="btn btn--danger" id="resetAll">全部重置</button>
+    </div>
+
+    <div class="hero__stats">
+      <div class="stat">
+        <span class="stat__label">今日完成</span>
+        <strong class="stat__value" id="statDaily">0 / 0</strong>
+        <div class="bar"><i id="barDaily" style="width:0%"></i></div>
+      </div>
+      <div class="stat">
+        <span class="stat__label">本周完成</span>
+        <strong class="stat__value" id="statWeekly">0 / 0</strong>
+        <div class="bar"><i id="barWeekly" style="width:0%"></i></div>
+      </div>
+      <div class="stat stat--mini">
+        <span class="stat__label">已打卡天数</span>
+        <strong class="stat__value" id="statDays">0</strong>
+      </div>
+      <div class="stat stat--mini">
+        <span class="stat__label">距每日重置</span>
+        <strong class="stat__value stat__value--time" id="countdown">--:--:--</strong>
+      </div>
+    </div>
+
+    <div class="hero__sum" id="totalIncome"></div>
+    <p class="hero__day" id="dayLabel"></p>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="清单板块"></nav>
+
+  <div class="toolbar">
+    <label class="switch">
+      <input type="checkbox" id="foldDone" />
+      <span class="switch__track" aria-hidden="true"><i></i></span>
+      <span class="switch__text">折叠已完成项目</span>
+    </label>
+    <div class="toolbar__actions">
+      <button type="button" class="btn btn--mini" id="batchAll">一键完成本页</button>
+      <button type="button" class="btn btn--mini" id="resetSection">重置本页</button>
+    </div>
+  </div>
+
+  <main id="sections" class="sections"></main>
+
+  <footer class="foot">
+    <p class="foot__rule">计数日规则：当日 00:00 ~ 次日 00:00 为一日 · 本周指周一 00:00 ~ 次周一 00:00</p>
+    <p>进度与收益保存在本机浏览器（localStorage），换设备 / 清缓存会丢失。</p>
+    <p>清单结构参考 B 站「本命英雄拉克丝」的痒痒鼠打卡工具；攻略备注整理自《2025 痒痒鼠课程表 by 妹酱的小本本》。</p>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
