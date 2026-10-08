@@ -54,6 +54,12 @@ body {
   line-height: 1.7;
 }
 
+.notice__credit {
+  display: inline-block;
+  margin-top: 2px;
+  color: var(--gold-bright, #f0d190);
+}
+
 /* ===== Hero ===== */
 .hero {
   position: relative;
@@ -664,6 +670,7 @@ body {
 
 .foot p { margin: 0 0 4px; }
 .foot__rule { color: var(--muted); }
+.foot__credit { color: var(--gold); }
 
 /* ===== Toast ===== */
 .toast {
