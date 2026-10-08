@@ -86,6 +86,12 @@ npx serve .
 
 本项目是纯静态站点，**无需任何构建配置**，三种方式任选：
 
+> **本项目部署说明**
+>
+> - **Vercel 登录方式**：使用 **Google 账号快捷登录**（Sign in with Google），无需单独注册 Vercel 账号
+> - **导入仓库**：`asta0511/onmyoji-checklist`
+> - 导入时 Framework Preset 选 `Other`，Build Command 与 Output Directory 均留空
+
 ### 方式一：命令行（最快）
 
 ```bash
