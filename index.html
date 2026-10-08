@@ -7,6 +7,12 @@
 <title>痒痒鼠课程表 · 阴阳师打卡清单</title>
 <meta name="description" content="阴阳师每日 / 每周 / 活动打卡清单，自动统计勾玉蓝票收益，随时看清完成了哪些、还差哪些。" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c8352f'/%3E%3Ctext x='16' y='23' font-size='19' text-anchor='middle' fill='%23f0d190' font-family='serif'%3E%E5%BC%8F%3C/text%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="manifest" href="./manifest.json" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="痒痒鼠课程表" />
 <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -34,6 +40,7 @@
     <div class="accounts" id="accounts" aria-label="账号切换"></div>
 
     <div class="hero__actions">
+      <button type="button" class="btn btn--install" id="installApp" hidden>安装到桌面</button>
       <button type="button" class="btn" id="resetDay">重置本日打卡</button>
       <button type="button" class="btn btn--danger" id="resetAll">全部重置</button>
     </div>
@@ -86,6 +93,21 @@
     <p class="foot__credit">前端网页服务由阳小楊设计并提供域名，托管服务商为 Vercel。</p>
   </footer>
 
+</div>
+
+<div class="sheet" id="iosSheet" hidden>
+  <div class="sheet__mask" data-sheet-close></div>
+  <div class="sheet__card" role="dialog" aria-modal="true" aria-labelledby="iosSheetTitle">
+    <h2 class="sheet__title" id="iosSheetTitle">安装到手机主屏</h2>
+    <p class="sheet__sub">安装后像 App 一样全屏打开，断网也能继续打卡。</p>
+    <ol class="sheet__steps">
+      <li>点 Safari 底部工具栏的<b>分享</b>按钮<span class="sheet__glyph">⇧</span>（方框向上箭头）</li>
+      <li>在弹出菜单里向下滑，选择<b>「添加到主屏幕」</b></li>
+      <li>右上角点<b>「添加」</b>，回到桌面就能看到图标了</li>
+    </ol>
+    <p class="sheet__tip">微信 / QQ 内置浏览器不支持添加，请先点右上角「···」选择「在 Safari 中打开」再操作。</p>
+    <button type="button" class="btn btn--primary" id="iosSheetClose">知道了</button>
+  </div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

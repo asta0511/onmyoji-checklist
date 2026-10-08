@@ -15,7 +15,7 @@
  *   kind     'persist' 永不自重置（如永久勾玉卡）/ 'monthly' 每月重置
  */
 window.ONMYOJI_DATA = {
-  version: 'v1.0.0',
+  version: 'v1.1.0',
   resetHour: 0,
   accounts: ['ID1', 'ID2', 'ID3', 'ID4', 'ID5', 'ID6'],
   resourceLabels: { jade: '勾玉', ticket: '蓝票', egg: '黑蛋', shard: '黑碎' },

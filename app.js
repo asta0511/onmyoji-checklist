@@ -391,6 +391,9 @@
     resetSection: document.getElementById('resetSection'),
     resetDay: document.getElementById('resetDay'),
     resetAll: document.getElementById('resetAll'),
+    installApp: document.getElementById('installApp'),
+    iosSheet: document.getElementById('iosSheet'),
+    iosSheetClose: document.getElementById('iosSheetClose'),
     toast: document.getElementById('toast')
   };
 
@@ -823,6 +826,74 @@
     renderAll();
     toast('已全部重置');
   });
+
+  /* ---------- 安装到桌面 / 手机主屏 ---------- */
+  var installPrompt = null;
+
+  function isStandalone() {
+    return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+      window.navigator.standalone === true;
+  }
+
+  function isIOS() {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) return true;
+    /* iPadOS 13 起 UA 与桌面版 macOS 相同，用触点数区分 */
+    return navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  }
+
+  function refreshInstallUI() {
+    if (!el.installApp) return;
+    el.installApp.hidden = isStandalone() || (!installPrompt && !isIOS());
+  }
+
+  function closeIosSheet() {
+    if (el.iosSheet) el.iosSheet.hidden = true;
+  }
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    installPrompt = e;
+    refreshInstallUI();
+  });
+
+  window.addEventListener('appinstalled', function () {
+    installPrompt = null;
+    refreshInstallUI();
+    toast('已安装到桌面，下次从图标直接打开');
+  });
+
+  if (el.installApp) {
+    el.installApp.addEventListener('click', function () {
+      if (installPrompt) {
+        var p = installPrompt;
+        installPrompt = null;
+        p.prompt();
+        p.userChoice.then(function () { refreshInstallUI(); });
+        return;
+      }
+      if (isIOS()) { el.iosSheet.hidden = false; return; }
+      toast('请在浏览器菜单里选择「安装应用」或「添加到主屏幕」');
+    });
+  }
+
+  if (el.iosSheetClose) el.iosSheetClose.addEventListener('click', closeIosSheet);
+  if (el.iosSheet) {
+    el.iosSheet.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-sheet-close')) closeIosSheet();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeIosSheet();
+    });
+  }
+
+  refreshInstallUI();
+
+  /* 离线可用：注册 Service Worker（file:// 直接打开时跳过） */
+  if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('./sw.js').catch(function () {});
+    });
+  }
 
   /* ---------- 启动 ---------- */
   if (!TABS.some(function (t) { return t.id === prefs.tab; })) prefs.tab = SECTIONS[0].id;
